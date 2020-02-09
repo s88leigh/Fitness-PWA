@@ -2,6 +2,7 @@
 const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const compression = require("compression");
 
 const app = express();
 const databaseName = "Fitness-Tracker_db";
@@ -11,6 +12,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(logger("dev"));
 
+//compresses all files
+app.use(compression)
 
 //middleware
 app.use(express.urlencoded({ extended: true }));
