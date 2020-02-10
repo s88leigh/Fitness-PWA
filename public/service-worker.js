@@ -7,8 +7,8 @@ const FILES_TO_CACHE = [
     "/stats.html",
     "/style.css",
     "/workout-style.css",
-    "/api.js",
-    "/service-worker.js",
+    "api.js",
+    // "service-worker.js",
     "/stats.js",
     "/workout.js",
     "/manifest.webmanifest",
@@ -33,6 +33,7 @@ self.addEventListener("install", function (evt) {
 
 // activate
 self.addEventListener("activate", function (evt) {
+    //remove unwanted caches
   evt.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
