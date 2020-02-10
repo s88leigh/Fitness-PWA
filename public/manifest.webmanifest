@@ -1,0 +1,15 @@
+{
+    "name": "Fitness Tracker",
+    "short_name": "Fitness Tracker",
+    "display": "standalone",
+    "start_url": "/",
+    "background_color": "#fff",
+    "theme_color": "#fff",
+    "icons": [{
+        "src": "img/pushup.png",
+        "sizes": "144x144",
+        "type": "image/png"
+    
+}]
+    
+}
