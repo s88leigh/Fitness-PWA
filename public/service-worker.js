@@ -7,7 +7,7 @@ const FILES_TO_CACHE = [
     "/stats.html",
     "/style.css",
     "/workout-style.css",
-    "api.js",
+    "/api.js",
     // "service-worker.js",
     "/stats.js",
     "/workout.js",
