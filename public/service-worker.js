@@ -8,19 +8,20 @@ const FILES_TO_CACHE = [
     "/style.css",
     "/workout-style.css",
     "/api.js",
-    // "service-worker.js",
     "/stats.js",
     "/workout.js",
     "/manifest.webmanifest",
-    "/img/pushup.png"
+    "/img/pushup.png",
+ 
   ];
   
   
 const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
 
-// call install event
-self.addEventListener("install", function (evt) {
+
+// install
+self.addEventListener("install", function(evt) {
   evt.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       console.log("Your files were pre-cached successfully!");
@@ -32,8 +33,7 @@ self.addEventListener("install", function (evt) {
 });
 
 // activate
-self.addEventListener("activate", function (evt) {
-    //remove unwanted caches
+self.addEventListener("activate", function(evt) {
   evt.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
@@ -51,8 +51,10 @@ self.addEventListener("activate", function (evt) {
 });
 
 // fetch
-self.addEventListener("fetch", function (evt) {
+self.addEventListener("fetch", function(evt) {
   if (evt.request.url.includes("/api/")) {
+    console.log("[Service Worker] Fetch (data)", evt.request.url);
+
     evt.respondWith(
       caches.open(DATA_CACHE_NAME).then(cache => {
         return fetch(evt.request)
@@ -68,17 +70,16 @@ self.addEventListener("fetch", function (evt) {
             // Network request failed, try to get it from the cache.
             return cache.match(evt.request);
           });
-      }).catch(err => console.log(err))
+      })
     );
 
     return;
   }
 
-  evt.respondWith(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.match(evt.request).then(response => {
-        return response || fetch(evt.request);
-      });
-    })
-  );
-});
+evt.respondWith(
+  caches.open(CACHE_NAME).then(cache => {
+    return cache.match(evt.request).then(response => {
+      return response || fetch(evt.request);
+    });
+  })
+)});
